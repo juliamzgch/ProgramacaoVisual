@@ -73,18 +73,17 @@ namespace TP06_TutorialLinQ
                 Console.WriteLine(i.ToString());
 
             Console.WriteLine("\nXXXXXXXXXXX 7 Contém Começa e Termina");
+
             var claudias = from i
                            in alunos
                            where i.Nome.Contains("Cláudia")
                            select i;
-            
             foreach (var i in claudias)
                 Console.WriteLine(i.ToString());
             Console.WriteLine();
             var comecaPorAn = from i in alunos
                               where i.Nome.StartsWith("An")
                               select i.Nome;
-
             foreach (var i in comecaPorAn)
                 Console.WriteLine(i.ToString());
             Console.WriteLine();
@@ -94,11 +93,14 @@ namespace TP06_TutorialLinQ
             foreach(var i in terminaEmA)
                 Console.WriteLine(i.ToString());
 
-            Console.WriteLine("\nXXXXXXXXXXX Take Skip e Group By");
+            Console.WriteLine("\nXXXXXXXXXXX 8 Take, Skip e Group By");
+
             var tresAlunosDaLei = (from i in alunos
                                    where i.Curso == Curso.LEI
                                    select i.Nome).Take(7);
+
             Console.WriteLine("XXXXX Primeiros 7 da LEI");
+
             foreach (var aluno in tresAlunosDaLei)
                 Console.WriteLine(aluno);
 
