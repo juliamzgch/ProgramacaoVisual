@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TP16</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+</head>
+<body>
+    <a href="c:\users\julia\documents\ips\pv\a15\a14_net_mvc\views\shared\_mylayout.cshtml">c:\users\julia\documents\ips\pv\a15\a14_net_mvc\views\shared\_mylayout.cshtml</a>
+    <table style="width:100%;">
+        <tr>
+            <td>Links</td>
+            <td style="text-align:center">As views são injetadas aqui por baixo</td>
+        </tr>
+        <tr>
+            <td>
+                <p>@Html.ActionLink("Home", "Index")</p>
+                <p>@Html.ActionLink("Privacy", "Privacy")</p>
+            </td>
+            <td>@RenderBody()</td>
+        </tr>
+    </table>
+</body>
+</html>
+
+

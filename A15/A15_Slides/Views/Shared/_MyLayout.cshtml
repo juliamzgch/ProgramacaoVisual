@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PhotoShoping II</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+</head>
+<body>
+    <table style="width:100%;">
+        <tr>
+            <td>Links</td>
+            <td style="text-align:center">As views são injetadas aqui por baixo</td>
+        </tr>
+        <tr>
+            <td>
+                <p>@Html.ActionLink("Home", "Index")</p>
+                <p>@Html.ActionLink("Privacy", "Privacy")</p>
+                <p>
+                    @Html.ActionLink(
+                    linkText: "Por Titulo",
+                    actionName: "PorTitulo",
+                    controllerName: "Home",
+                    routeValues: new{Titulo= "Deserto"},
+                    htmlAttributes: null
+                    )
+                </p>
+                <p>@Html.ActionLink("Fotos", "ListarFotos")</p>
+            </td>
+            <td>@RenderBody()</td>
+        </tr>
+    </table>
+    <footer>
+        @RenderSection("Footer", required: false)
+    </footer>
+</body>
+</html>

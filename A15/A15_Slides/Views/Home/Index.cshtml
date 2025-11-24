@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    //Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<div class="text-center">
+    <h1>@ViewBag.Wellcome</h1>
+    <h3>@ViewData["Texto1"]</h3>
+    <h4>@ViewData["Texto2"]</h4>
+</div>
+
+@section Footer
+    {
+    <span>Texto para o Footer do _MyLayout</span>
+}

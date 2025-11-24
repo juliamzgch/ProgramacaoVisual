@@ -1,0 +1,263 @@
+﻿***************************************************
+*** SLIDE 10 - Ação PorTitulo do HomeController ***
+***************************************************
+
+public IActionResult PorTitulo(string titulo)
+{
+    Foto f = new Foto
+    {
+        Codigo = "ABC000001",
+        Titulo = titulo
+    };
+    return View(f);
+}
+
+********************************************
+*** SLIDE 13 - ViewBag  HomeController.cs ***
+********************************************
+
+public IActionResult Index()
+{
+  ViewBag.Welcome = "Bem Vindo";
+  Foto f = new Foto() { Titulo = "Deserto" };
+  ViewBag.MyFoto = f;
+  return View();
+}
+
+****************************************
+*** SLIDE 13 - ViewBag  Index.cshtml  ***
+****************************************
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+  <h1 class="display-4">@ViewBag.Welcome</h1>
+  <h1 class="display-4">@ViewBag.MyFoto.Titulo</h1>
+</div>
+
+********************************************
+*** SLIDE 14 - ViewData HomeController.cs ***
+********************************************
+public IActionResult Index()
+{
+  List<String> lista = new List<String>() { 
+            "aqui vai encontrar", "as melhores fotos" };
+  ViewData["ObjectoLista"] = lista;
+  ViewData["Texto1"] = " Bem Vindo ao FotoShopping";
+  return View();
+}
+
+****************************************
+*** SLIDE 14 - ViewData  Index.cshtml  ***
+****************************************
+
+@{
+   ViewData["Title"] = "Home Page";
+   List<String> lista = ViewData["ObjectoLista"] as List<String>;
+    
+}
+
+    <div class="text-center">
+        <h1 class="display-4">@ViewData["Texto1"]</h1>
+        <p>@lista[0]</p>
+        <p>@lista[1]</p>
+    </div>
+
+******************************************************
+*** SLIDE 15 - Criação de Layouts _MyLayout.cshtml  ***
+******************************************************
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TP16</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+</head>
+<body>
+    <table style="width:100%;">
+        <tr>
+            <td>Links</td>
+            <td style="text-align:center">As views são injetadas aqui por baixo</td>
+        </tr>
+        <tr>
+            <td>
+                <p>@Html.ActionLink("Home", "Index")</p>
+                <p>@Html.ActionLink("Privacy", "Privacy")</p>
+            </td>
+            <td>@RenderBody()</td>
+        </tr>
+    </table>
+</body>
+</html>
+
+**********************************************************
+*** SLIDE 17 - Utilização de Layouts _MyLayout.cshtml  ***
+**********************************************************
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<div class="text-center">
+    <h1>@ViewBag.Wellcome</h1>
+    <h3>@ViewData["Texto1"]</h3>
+    <h4>@ViewData["Texto2"]</h4>
+</div>
+
+**************************
+*** SLIDE 21 - footer  ***
+**************************
+<!-- Inserir abaixo da <table> no _MyLayout.cshtml -->
+
+    <footer>
+        @RenderSection("Footer", required: false)
+    </footer>
+
+<!-- Inserir no fundo dos index.cshtml e privacy.cshtml -->
+
+@section Footer
+{
+    <span>Texto para o Footer do _MyLayout</span>
+}
+
+*****************************************
+*** SLIDE 23 - _MyLayout Por Omissão  ***
+*****************************************
+<!-- Substituir o path no ficheiro _ViewStart.cshtml-->
+
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<!-- Comentar o path nas views Privacy e Index-->
+
+**************************************
+*** SLIDE 25 - @ para HTML encoded ***
+**************************************
+
+@* @ Para valores (HTML Encoded)*@
+<p>
+    use @@ para valores (HTML encoded)<br />
+    Current time is: @DateTime.Now <br />
+    Not HTML encoded value: @Html.Raw(@DateTime.Now)
+</p>
+
+@* @{...} Para blocos de Código *@
+@{ 
+    var fotoName = "North Sea";
+    if (Model != null) {
+        fotoName = Model.Titulo;
+    }
+    else if (ViewBag.FotoName != null) {
+        fotoName = ViewBag.FotoName;
+    }
+    <p> A fotografia"@fotoName" foi adicionada
+        à sua lista de compras</p>
+}
+
+***************************************
+*** SLIDE 26
+***************************************
+<!-- Criar a acção ListarFotos no controlador Home-->
+
+public IActionResult ListarFotos()
+{
+   List<Foto> listaDeFotos = new List<Foto>();
+   Foto f1 = new Foto{ Titulo = "North Sea", Codigo = "NS111"};
+   Foto f2 = new Foto{ Titulo = "Turtle", Codigo = "TU222"};
+   Foto f3 = new Foto { Titulo = "Sun Shining", Codigo = "SUSH333"};
+   listaDeFotos.Add(f1);
+   listaDeFotos.Add(f2);
+   listaDeFotos.Add(f3);
+   return View(listaDeFotos);
+}
+
+<!-- Inserir um "Link" para a acção ListarFotos no _MyLayout.cshtml-->
+
+<p>@Html.ActionLink("Fotos", "ListarFotos")</p>
+
+
+***********************************
+*** SLIDE 27 - View ListarFotos ***
+***********************************
+
+@model IEnumerable<TP16_Slides.Models.Foto>
+@{
+   ViewData["Title"] = "Listar Fotos";
+   Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+<div class="lista-de-fotos">
+   @if (Model.Count == 0)
+   {
+      <p> Desculpe. não foram encontradas fotografias</p>
+   }
+   else
+   {
+      @: Lista de fotografias disponíveis:
+      foreach (var foto in Model)
+      {
+         <br /><b>@foto.Codigo -- @foto.Titulo</b>
+      }
+   }
+</div>
+
+**********************************
+*** SLIDE 28 - View PorTitulo  ***
+**********************************
+
+Adicione o código abaixo à classe Foto:
+
+        public decimal Preco { get; set; }
+
+        public Foto()
+        {
+            Preco = 6;
+        }
+
+<!-- adicione o código abaixo à view PorTitulo -->
+@* Comentários em Razor *@
+@{ 
+      // Comentários em c#
+      /* Comentários multilinha
+         que acordámos não usar em C# */
+}
+@* E como é com os "@" dos e-mails? *@
+<p>
+    O sinal que separa os nomes do 
+    e-mail dos dominios é: @@<br/>
+    E isto mostra como o razor 
+    pode ser espertalhaço:<br/>
+    spam_them@gmail.com
+</p>
+@* Expressão de código explicita *@
+<p>
+    Preços actuais (0-10): @Model.Preco / 10.0    @* 6 / 10.0 *@
+    <br/>
+    Preços actuais (0-1): @(Model.Preco / 10.0M)  @* 0.6 *@
+    <br />
+    spam_them@Model.Preco                         @* spam_them@Model.Preco *@
+    <br />
+    spam_them@(Model.Preco)                       @* spam_them6 *@
+</p>
+
+******************************************
+*** Action Link para a View PorTitulo  ***
+******************************************
+<!-- experimente adicionar o códigoabaixo à célula com os links do _MyLayout-->
+<p>
+                    @Html.ActionLink(
+                    linkText: "Por Titulo",
+                    actionName: "PorTitulo",
+                    controllerName: "Home",
+                    routeValues: new{Titulo= "Deserto"},
+                    htmlAttributes: null
+                    )
+                </p>

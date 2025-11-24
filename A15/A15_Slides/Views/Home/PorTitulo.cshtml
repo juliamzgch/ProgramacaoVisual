@@ -1,0 +1,56 @@
+﻿@model TP16_Slides.Models.Foto
+
+@{
+    ViewData["Title"] = "PorTitulo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>PorTitulo</h1>
+
+<div>
+    <h4>Foto</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@* Comentários em Razor *@
+@{
+    // Comentários em c#
+    /* Comentários multilinha
+       que acordámos não usar em C# */
+}
+@* E como é com os "@" dos e-mails? *@
+<p>
+    O sinal que separa os nomes do
+    e-mail dos dominios é: @@<br />
+    E isto mostra como o razor
+    pode ser espertalhaço:<br />
+    spam_them@gmail.com
+</p>
+@* Expressão de código explicita *@
+<p>
+    Preços actuais (0-10): @Model.Preco / 10.0    @* 6 / 10.0 *@
+    <br/>
+    Preços actuais (0-1): @(Model.Preco / 10.0M)  @* 0.6 *@
+    <br />
+    spam_them@Model.Preco                         @* spam_them@Model.Preco *@
+    <br />
+    spam_them@(Model.Preco)                       @* spam_them6 *@
+</p>

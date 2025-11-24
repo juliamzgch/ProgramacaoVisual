@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    List<String> textos = ViewData["ObjetoLista"] as List<String>;
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<div class="text-center">
+
+    <p class="display-4">@ViewData["Texto1"]</p>
+    <p>@textos[0]</p>
+    <p>@textos[1]</p>
+   
+    
+</div>
